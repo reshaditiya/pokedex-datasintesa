@@ -2,6 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Navbar } from '@/components/navbar';
+import ReactQueryProvider from '@/components/react-query-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,8 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} mx-auto max-w-7xl px-6`}>
-        <Navbar />
-        {children}
+        <ReactQueryProvider>
+          <Navbar />
+          {children}
+        </ReactQueryProvider>
       </body>
     </html>
   );
