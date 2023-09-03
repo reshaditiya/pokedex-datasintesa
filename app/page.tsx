@@ -1,5 +1,10 @@
+import { ComboboxType } from '@/components/combobox-type';
 import Image from 'next/image';
 
 export default function Home() {
-	return <main>Hello World</main>;
+  return (
+    <main>
+      <ComboboxType className="mt-6" />
+    </main>
+  );
 }
