@@ -1,5 +1,4 @@
 import { ComboboxType } from '@/components/combobox-type';
-import Image from 'next/image';
 
 export default function Home() {
   return (
