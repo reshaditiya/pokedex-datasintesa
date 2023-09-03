@@ -26,7 +26,7 @@ type PokemonTypesDb = {
   results: { name: string; url: string }[];
 };
 
-export function ComboboxType() {
+export function ComboboxType({ className }: { className?: string }) {
   let pokemonTypes = [
     {
       value: 'allTypes',
@@ -54,7 +54,7 @@ export function ComboboxType() {
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
+      <PopoverTrigger asChild className={className}>
         <Button
           variant="outline"
           role="combobox"
