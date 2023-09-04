@@ -7,7 +7,7 @@ export function Navbar({}) {
   return (
     <>
       <nav className="mt-6 flex items-center justify-between">
-        <Link href="/" as="span" className="flex gap-3 text-lg font-semibold">
+        <Link href="/" className="flex gap-3 text-lg font-semibold">
           <Swords className="h-6 w-6" />
           Pokedex
         </Link>
