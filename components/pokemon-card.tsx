@@ -11,20 +11,24 @@ import { Button } from './ui/button';
 import { BookOpen, Star } from 'lucide-react';
 import Image from 'next/image';
 import { AspectRatio } from './ui/aspect-ratio';
+import { Ref, forwardRef } from 'react';
 
-export default function PokemonCard({
-  name,
-  id,
-  types,
-  image,
-}: {
-  name: string;
-  id: number;
-  types: string[];
-  image: string;
-}) {
+export const PokemonCard = forwardRef(function PokemonCard(
+  {
+    name,
+    id,
+    types,
+    image,
+  }: {
+    name: string;
+    id: number;
+    types: string[];
+    image: string;
+  },
+  ref: Ref<HTMLDivElement>,
+) {
   return (
-    <Card>
+    <Card ref={ref}>
       <CardHeader>
         <CardTitle className="text-lg font-semibold">
           {name}
@@ -54,4 +58,4 @@ export default function PokemonCard({
       </CardFooter>
     </Card>
   );
-}
+});
