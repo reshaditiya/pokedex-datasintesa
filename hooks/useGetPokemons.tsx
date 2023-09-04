@@ -37,7 +37,6 @@ export function useGetPokemons({ page }: { page: number }) {
       return {
         queryKey: ['pokemons', pokemon.name],
         queryFn: () => fetch(pokemon.url).then((data) => data.json()),
-        staleTime: Infinity,
         onSuccess: (data: PokemonData) => {
           setPokemonDatasState((prev) => [...prev, data]);
         },
