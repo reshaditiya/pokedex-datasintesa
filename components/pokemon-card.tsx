@@ -28,7 +28,7 @@ export const PokemonCard = forwardRef(function PokemonCard(
     <Card ref={ref}>
       <CardHeader>
         <CardTitle className="text-lg font-semibold">
-          {pokemon.name}
+          {capitalizeFirstChar(pokemon.name)}
           <span className="ml-2 text-sm font-medium">#{pokemon.id}</span>
         </CardTitle>
         <div className="mt-2 flex gap-2">
