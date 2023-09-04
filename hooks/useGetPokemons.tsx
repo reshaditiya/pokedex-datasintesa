@@ -24,13 +24,13 @@ export function useGetPokemons({ page }: { page: number }) {
       ).then((data) => data.json()),
     { enabled: false },
   );
+  const pokemonList = getPokemonList?.results || [];
 
   //get next pokemon when page change
   useEffect(() => {
     refetchPokemonList();
   }, [page, refetchPokemonList]);
 
-  const pokemonList = getPokemonList?.results || [];
   //fetch all sub data from pokemon list
   const pokemonDatas = useQueries({
     queries: pokemonList.map((pokemon) => {
@@ -44,7 +44,7 @@ export function useGetPokemons({ page }: { page: number }) {
       };
     }),
   });
-  //loading state on last sub data or pokemmon list
+
   const isLoading =
     pokemonDatas.every((val) => val === undefined) ?? isLoadingPokemonList;
 
