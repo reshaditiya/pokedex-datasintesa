@@ -85,30 +85,32 @@ export default function Home() {
       <section className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {isLoading
           ? 'Loading...'
-          : pokemonDatas.map((pokemon, i) =>
-              i === pokemonDatas.length - 1 ? (
-                <PokemonCard
-                  ref={lastElementRef}
-                  key={pokemon.id}
-                  name={pokemon.name}
-                  types={pokemon.types.map((type: any) => type.type.name)}
-                  image={
-                    pokemon.sprites.other['official-artwork'].front_default!
-                  }
-                  id={pokemon.id}
-                />
-              ) : (
-                <PokemonCard
-                  key={pokemon.id}
-                  name={pokemon.name}
-                  types={pokemon.types.map((type: any) => type.type.name)}
-                  image={
-                    pokemon.sprites.other['official-artwork'].front_default!
-                  }
-                  id={pokemon.id}
-                />
-              ),
-            )}
+          : pokemonDatas
+              .sort((a, b) => a.id - b.id)
+              .map((pokemon, i) =>
+                i === pokemonDatas.length - 1 ? (
+                  <PokemonCard
+                    ref={lastElementRef}
+                    key={pokemon.id}
+                    name={pokemon.name}
+                    types={pokemon.types.map((type: any) => type.type.name)}
+                    image={
+                      pokemon.sprites.other['official-artwork'].front_default!
+                    }
+                    id={pokemon.id}
+                  />
+                ) : (
+                  <PokemonCard
+                    key={pokemon.id}
+                    name={pokemon.name}
+                    types={pokemon.types.map((type: any) => type.type.name)}
+                    image={
+                      pokemon.sprites.other['official-artwork'].front_default!
+                    }
+                    id={pokemon.id}
+                  />
+                ),
+              )}
       </section>
     </main>
   );
