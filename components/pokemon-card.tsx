@@ -44,7 +44,7 @@ export default function PokemonCard({
         </AspectRatio>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button>
+        <Button variant="secondary">
           <BookOpen className="mr-2 h-4 w-4" />
           See Detail
         </Button>
