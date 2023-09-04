@@ -14,6 +14,7 @@ import Image from 'next/image';
 import { AspectRatio } from './ui/aspect-ratio';
 import { Ref, forwardRef } from 'react';
 import { PokemonData } from '@/types/pokeapiDB.type';
+import Link from 'next/link';
 
 export const PokemonCard = forwardRef(function PokemonCard(
   {
@@ -49,9 +50,11 @@ export const PokemonCard = forwardRef(function PokemonCard(
         </AspectRatio>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button variant="secondary">
-          <BookOpen className="mr-2 h-4 w-4" />
-          See Detail
+        <Button variant="secondary" asChild>
+          <Link href={pokemon.name}>
+            <BookOpen className="mr-2 h-4 w-4" />
+            See Detail
+          </Link>
         </Button>
         <FavoriteButton pokemon={pokemon} />
       </CardFooter>
