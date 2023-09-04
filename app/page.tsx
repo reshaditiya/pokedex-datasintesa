@@ -34,23 +34,10 @@ export default function Home() {
                   <PokemonCard
                     ref={lastElementRef}
                     key={pokemon.id}
-                    name={pokemon.name}
-                    types={pokemon.types.map((type: any) => type.type.name)}
-                    image={
-                      pokemon.sprites.other['official-artwork'].front_default!
-                    }
-                    id={pokemon.id}
+                    pokemon={pokemon}
                   />
                 ) : (
-                  <PokemonCard
-                    key={pokemon.id}
-                    name={pokemon.name}
-                    types={pokemon.types.map((type: any) => type.type.name)}
-                    image={
-                      pokemon.sprites.other['official-artwork'].front_default!
-                    }
-                    id={pokemon.id}
-                  />
+                  <PokemonCard key={pokemon.id} pokemon={pokemon} />
                 ),
               )}
       </section>

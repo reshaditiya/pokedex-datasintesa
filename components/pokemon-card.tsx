@@ -1,3 +1,4 @@
+import { FavoriteButton } from './favorite-button';
 import {
   Card,
   CardContent,
@@ -8,22 +9,17 @@ import {
 import { capitalizeFirstChar } from '@/lib/utils';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
-import { BookOpen, Star } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
 import Image from 'next/image';
 import { AspectRatio } from './ui/aspect-ratio';
 import { Ref, forwardRef } from 'react';
+import { PokemonData } from '@/types/pokeapiDB.type';
 
 export const PokemonCard = forwardRef(function PokemonCard(
   {
-    name,
-    id,
-    types,
-    image,
+    pokemon,
   }: {
-    name: string;
-    id: number;
-    types: string[];
-    image: string;
+    pokemon: PokemonData;
   },
   ref: Ref<HTMLDivElement>,
 ) {
@@ -31,20 +27,25 @@ export const PokemonCard = forwardRef(function PokemonCard(
     <Card ref={ref}>
       <CardHeader>
         <CardTitle className="text-lg font-semibold">
-          {name}
-          <span className="ml-2 text-sm font-medium">#{id}</span>
+          {pokemon.name}
+          <span className="ml-2 text-sm font-medium">#{pokemon.id}</span>
         </CardTitle>
         <div className="mt-2 flex gap-2">
-          {types.map((type) => (
-            <Badge variant="outline" key={type}>
-              {capitalizeFirstChar(type)}
+          {pokemon.types.map((type) => (
+            <Badge variant="outline" key={type.type.name}>
+              {capitalizeFirstChar(type.type.name)}
             </Badge>
           ))}
         </div>
       </CardHeader>
       <CardContent>
         <AspectRatio ratio={1 / 1}>
-          <Image src={image} fill alt={name} className="object-cover" />
+          <Image
+            src={pokemon.sprites.other['official-artwork'].front_default!}
+            fill
+            alt={pokemon.name}
+            className="object-cover"
+          />
         </AspectRatio>
       </CardContent>
       <CardFooter className="flex justify-between">
@@ -52,9 +53,7 @@ export const PokemonCard = forwardRef(function PokemonCard(
           <BookOpen className="mr-2 h-4 w-4" />
           See Detail
         </Button>
-        <Button size="icon" variant="secondary" className="text-yellow-800">
-          <Star className="h-4 w-4" />
-        </Button>
+        <FavoriteButton pokemon={pokemon} />
       </CardFooter>
     </Card>
   );
