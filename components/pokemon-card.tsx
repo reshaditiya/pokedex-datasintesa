@@ -19,7 +19,7 @@ export default function PokemonCard({
   image,
 }: {
   name: string;
-  id: string;
+  id: number;
   types: string[];
   image: string;
 }) {
