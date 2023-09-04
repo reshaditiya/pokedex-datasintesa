@@ -7,17 +7,15 @@ export function Navbar({}) {
   return (
     <>
       <nav className="mt-6 flex items-center justify-between">
-        <Link href="/">
-          <span className="flex gap-3 text-lg font-semibold">
-            <Swords className="h-6 w-6" />
-            Pokedex
-          </span>
+        <Link href="/" as="span" className="flex gap-3 text-lg font-semibold">
+          <Swords className="h-6 w-6" />
+          Pokedex
         </Link>
-        <Link href="/favorite">
-          <Button variant="secondary" className="text-yellow-800">
+        <Button variant="secondary" className="text-yellow-800" asChild>
+          <Link href="/favorite">
             <Star className="mr-2 h-4 w-4" /> My Favorite
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </nav>
       <Separator className="mt-6" />
     </>
