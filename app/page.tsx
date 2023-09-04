@@ -29,8 +29,8 @@ export default function Home() {
           ? 'Loading...'
           : pokemonDatas
               .sort((a, b) => a.id - b.id)
-              .map((pokemon, i) =>
-                i === pokemonDatas.length - 1 ? (
+              .map((pokemon) =>
+                pokemon.id === pokemonDatas.length - 1 ? (
                   <PokemonCard
                     ref={lastElementRef}
                     key={pokemon.id}
