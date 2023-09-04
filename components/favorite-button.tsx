@@ -1,6 +1,6 @@
 'use client';
 
-import { Star } from 'lucide-react';
+import { Star, Trash2 } from 'lucide-react';
 import { Button } from './ui/button';
 import { useLocalStorage } from 'usehooks-ts';
 import { PokemonData } from '@/types/pokeapiDB.type';
@@ -8,6 +8,8 @@ import { useToast } from './ui/use-toast';
 import { ToastAction } from './ui/toast';
 import { capitalizeFirstChar, cn } from '@/lib/utils';
 import Link from 'next/link';
+import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
+import { Close } from '@radix-ui/react-popover';
 
 export function FavoriteButton({ pokemon }: { pokemon: PokemonData }) {
   const { toast } = useToast();
@@ -44,6 +46,14 @@ export function FavoriteButton({ pokemon }: { pokemon: PokemonData }) {
     }
   }
 
+  return isFavorited ? (
+    <RemoveButton handleClick={handleClick} pokemonName={pokemon.name} />
+  ) : (
+    <AddButton handleClick={handleClick} />
+  );
+}
+
+function AddButton({ handleClick }: { handleClick: () => void }) {
   return (
     <Button
       size="icon"
@@ -51,7 +61,46 @@ export function FavoriteButton({ pokemon }: { pokemon: PokemonData }) {
       className="text-yellow-800"
       onClick={handleClick}
     >
-      <Star className={cn('h-4 w-4', isFavorited && 'fill-yellow-800')} />
+      <Star className="h-4 w-4" />
     </Button>
+  );
+}
+
+function RemoveButton({
+  handleClick,
+  pokemonName,
+}: {
+  handleClick: () => void;
+  pokemonName: string;
+}) {
+  return (
+    <Popover>
+      <PopoverTrigger>
+        <Button size="icon" variant="secondary" className="text-yellow-800">
+          <Star className="h-4 w-4 fill-yellow-800" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-72" align="end">
+        <>
+          <h4 className="font-medium leading-none">
+            Remove {capitalizeFirstChar(pokemonName)} ?
+          </h4>
+          <p className="text-muted-foreground mt-1 text-sm">
+            Remove action cannot be undone.
+          </p>
+          <div className="mt-4 flex gap-3">
+            <Button variant="destructive" size="sm" onClick={handleClick}>
+              <Trash2 className="mr-1.5 h-4 w-4" />
+              Remove
+            </Button>
+            <Close>
+              <Button variant="secondary" size="sm">
+                Cancel
+              </Button>
+            </Close>
+          </div>
+        </>
+      </PopoverContent>
+    </Popover>
   );
 }
