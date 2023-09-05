@@ -3,13 +3,16 @@
 import { ComboboxType } from '@/components/combobox-type';
 import { PokemonCard } from '@/components/pokemon-card';
 import { Button } from '@/components/ui/button';
-import { PokemonData } from '@/types/pokeapiDB.type';
+import { PokemonList } from '@/types/pokeapiDB.type';
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import { useLocalStorage } from 'usehooks-ts';
 
 export default function Page() {
-  const [favPokemon] = useLocalStorage<PokemonData[]>('favPokemon', []);
+  const [favPokemon] = useLocalStorage<PokemonList['results']>(
+    'favPokemon',
+    [],
+  );
 
   return (
     <main>
@@ -24,9 +27,9 @@ export default function Page() {
       </div>
       <section className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {favPokemon
-          .sort((a, b) => a.id - b.id)
+          .sort((a, b) => a.name.localeCompare(b.name))
           .map((pokemon) => (
-            <PokemonCard key={pokemon.id} pokemon={pokemon} />
+            <PokemonCard key={pokemon.name} pokemonUrl={pokemon.url} />
           ))}
       </section>
     </main>
