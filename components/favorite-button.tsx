@@ -6,7 +6,7 @@ import { useLocalStorage } from 'usehooks-ts';
 import { PokemonData, PokemonList } from '@/types/pokeapiDB.type';
 import { useToast } from './ui/use-toast';
 import { ToastAction } from './ui/toast';
-import { capitalizeFirstChar, cn } from '@/lib/utils';
+import { capitalizeFirstChar } from '@/lib/utils';
 import Link from 'next/link';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Close } from '@radix-ui/react-popover';
