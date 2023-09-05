@@ -7,7 +7,7 @@ export function Footer({}) {
   return (
     <footer className="mt-auto">
       <Separator className="mt-6" />
-      <div className="my-6 flex items-center justify-between text-gray-600">
+      <div className="my-6 flex items-center justify-between text-gray-500">
         © 2023 Resha Aditiya{' '}
         <div>
           <Button size="icon" variant="ghost" className="rounded-full" asChild>
