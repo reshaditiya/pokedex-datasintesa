@@ -6,6 +6,7 @@ import { useEffect, useReducer, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { PokemonList, PokemonTypesAPI } from '@/types/pokeapiDB.type';
 import { useIntersectionObserver } from 'usehooks-ts';
+import SkeletonHomePage from '@/components/skeleton-home-page';
 
 const DATA_PER_FETCH = 12;
 
@@ -48,7 +49,7 @@ export default function Home() {
   const lastElementRef = useRef<HTMLDivElement | null>(null);
   const lastElement = useIntersectionObserver(lastElementRef, {});
 
-  const { data, refetch } = useQuery<PokemonList['results']>({
+  const { data, refetch, isLoading } = useQuery<PokemonList['results']>({
     queryKey: ['pokemonList'],
     queryFn: async () => {
       //automatically fetch filtered data or all
@@ -85,13 +86,15 @@ export default function Home() {
         //adding new filter
         dispatchPokemonList({ type: 'upsert', payload: data });
       }
-    } else if (data?.length && filterType.length === 1) {
+    } else if (data?.length === 0 && filterType.length === 1) {
       //if type exist but not the data
       dispatchPokemonList({ type: 'reset', payload: [] });
     }
 
     refetch();
   }, [data, filterType, refetch]);
+
+  if (isLoading) return <SkeletonHomePage />;
 
   return (
     <main className="relative">
