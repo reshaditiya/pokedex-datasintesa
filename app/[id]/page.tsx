@@ -61,11 +61,9 @@ export default function Page({ params }: { params: { id: string | number } }) {
   } = useQuery<PokemonSpecies>({
     queryKey: ['pokemonSpecies'],
     queryFn: () =>
-      fetch(
-        `${process.env.NEXT_PUBLIC_POKEMON_API}/pokemon-species/${params?.id}`,
-        {},
-      ).then((res) => res.json()),
+      fetch(pokemonData?.species.url!, {}).then((res) => res.json()),
     cacheTime: Infinity,
+    enabled: !!pokemonData?.species.url,
   });
 
   if (!pokemonData || !pokemonSpecies) return 'Loading';
