@@ -72,14 +72,11 @@ export default function SkeletonDetailPage() {
             <Skeleton className="ml-12 mt-4 h-44 w-44 rounded-full" />
           </div>
 
-          <div>
-            <Skeleton className="h-6 w-24" />
-            <div className="mt-1 grid grid-cols-2 gap-3">
-              {Array(2)
-                .fill(undefined)
-                .map((_, i) => (
-                  <SkeletonPokemonCard key={i} />
-                ))}
+          <div className="max-w-lg">
+            <Skeleton className="h-6 w-20" />
+            <div className="mt-1 flex gap-2">
+              <Skeleton className="h-44 w-44" />
+              <Skeleton className="h-44 w-44" />
             </div>
           </div>
         </div>

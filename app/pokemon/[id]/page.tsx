@@ -217,21 +217,25 @@ export default function Page({ params }: { params: { id: string | number } }) {
             </div>
           </div>
 
-          <div>
-            <h3 className="font-semibold">Varieties</h3>
-            <div className="mt-1 grid grid-cols-2 gap-3">
-              {pokemonSpecies.varieties.length > 1
-                ? pokemonSpecies.varieties
-                    .filter(
-                      (variety) => variety.pokemon.name !== pokemonData.name,
-                    )
-                    .map((variety) => (
-                      <PokemonCard
-                        pokemonUrl={variety.pokemon.url}
-                        key={variety.pokemon.name}
-                      />
-                    ))
-                : 'No varieties'}
+          <div className="max-w-lg">
+            <h3 className="font-semibold">Sprites</h3>
+            <div className="mt-2 flex gap-2">
+              {pokemonData.sprites.front_default && (
+                <Image
+                  src={pokemonData.sprites.front_default}
+                  alt="Front Sprite"
+                  width={192}
+                  height={192}
+                />
+              )}
+              {pokemonData.sprites.back_default && (
+                <Image
+                  src={pokemonData.sprites.back_default}
+                  alt="Back Sprite"
+                  width={192}
+                  height={192}
+                />
+              )}
             </div>
           </div>
         </div>
