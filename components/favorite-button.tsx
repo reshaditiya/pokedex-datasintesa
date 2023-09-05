@@ -75,7 +75,7 @@ function RemoveButton({
 }) {
   return (
     <Popover>
-      <PopoverTrigger>
+      <PopoverTrigger asChild>
         <Button size="icon" variant="secondary" className="text-yellow-800">
           <Star className="h-4 w-4 fill-yellow-800" />
         </Button>
@@ -93,7 +93,7 @@ function RemoveButton({
               <Trash2 className="mr-1.5 h-4 w-4" />
               Remove
             </Button>
-            <Close>
+            <Close asChild>
               <Button variant="secondary" size="sm">
                 Cancel
               </Button>
