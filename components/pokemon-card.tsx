@@ -72,7 +72,7 @@ export const PokemonCard = forwardRef(function PokemonCard(
       </CardContent>
       <CardFooter className="mt-auto flex justify-between">
         <Button variant="secondary" asChild>
-          <Link href={pokemonData.name}>
+          <Link href={`/pokemon/${pokemonData.name}`}>
             <BookOpen className="mr-2 h-4 w-4" />
             See Detail
           </Link>

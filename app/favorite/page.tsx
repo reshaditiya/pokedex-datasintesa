@@ -30,7 +30,7 @@ export default function Page() {
       {favPokemon.length === 0 ? (
         <EmptyState
           title="Favorite Is Empty!"
-          description="Go to the home page and add star the pokemon you like"
+          description="Go to the home page and add star the pokemon you like."
           action={
             <Button asChild>
               <Link href="/">

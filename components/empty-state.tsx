@@ -13,7 +13,12 @@ export default function EmptyState({
   className?: string;
 }) {
   return (
-    <div className={cn('my-auto flex w-full flex-col items-center', className)}>
+    <div
+      className={cn(
+        'my-auto flex w-full flex-1 flex-col items-center justify-center',
+        className,
+      )}
+    >
       <CircleDotDashed className="h-12 w-12 text-gray-800" />
       <h1 className="mt-6 max-w-lg scroll-m-20 text-center text-2xl font-semibold tracking-tight">
         {title}
