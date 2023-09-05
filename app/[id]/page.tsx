@@ -48,8 +48,8 @@ export default function Page({ params }: { params: { id: string | number } }) {
   } = useQuery<PokemonData>({
     queryKey: ['pokemonDetail'],
     queryFn: () =>
-      fetch(`https://pokeapi.co/api/v2/pokemon/${params.id}`).then((res) =>
-        res.json(),
+      fetch(`${process.env.NEXT_PUBLIC_POKEMON_API}/pokemon/${params.id}`).then(
+        (res) => res.json(),
       ),
     cacheTime: Infinity,
   });
@@ -61,9 +61,10 @@ export default function Page({ params }: { params: { id: string | number } }) {
   } = useQuery<PokemonSpecies>({
     queryKey: ['pokemonSpecies'],
     queryFn: () =>
-      fetch(`https://pokeapi.co/api/v2/pokemon-species/${params?.id}`, {}).then(
-        (res) => res.json(),
-      ),
+      fetch(
+        `${process.env.NEXT_PUBLIC_POKEMON_API}/pokemon-species/${params?.id}`,
+        {},
+      ).then((res) => res.json()),
     cacheTime: Infinity,
   });
 
