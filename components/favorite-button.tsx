@@ -3,7 +3,7 @@
 import { Star, Trash2 } from 'lucide-react';
 import { Button } from './ui/button';
 import { useLocalStorage } from 'usehooks-ts';
-import { PokemonData } from '@/types/pokeapiDB.type';
+import { PokemonData, PokemonList } from '@/types/pokeapiDB.type';
 import { useToast } from './ui/use-toast';
 import { ToastAction } from './ui/toast';
 import { capitalizeFirstChar, cn } from '@/lib/utils';
@@ -19,16 +19,18 @@ export function FavoriteButton({
   pokemon: PokemonData;
 }) {
   const { toast } = useToast();
-  const [favPokemon, setFavPokemon] = useLocalStorage<string[]>(
+  const [favPokemon, setFavPokemon] = useLocalStorage<PokemonList['results']>(
     'favPokemon',
     [],
   );
-  const isFavorited = !!favPokemon.find((localFav) => localFav === pokemonUrl);
+  const isFavorited = !!favPokemon.find(
+    (localFav) => localFav.name === pokemon.name,
+  );
 
   function handleClick() {
     if (isFavorited) {
       setFavPokemon((prev) =>
-        prev.filter((localFav) => localFav !== pokemonUrl),
+        prev.filter((localFav) => localFav.name !== pokemon.name),
       );
       toast({
         title: `${capitalizeFirstChar(pokemon.name)} removed from favorite!.`,
@@ -40,7 +42,10 @@ export function FavoriteButton({
         ),
       });
     } else {
-      setFavPokemon((prevFav) => [...prevFav, pokemonUrl]);
+      setFavPokemon((prevFav) => [
+        ...prevFav,
+        { name: pokemon.name, url: pokemonUrl },
+      ]);
       toast({
         title: `${capitalizeFirstChar(pokemon.name)} added to favorite!.`,
         description:
