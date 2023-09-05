@@ -65,7 +65,6 @@ export default function Page({ params }: { params: { id: string | number } }) {
         (res) => res.json(),
       ),
     cacheTime: Infinity,
-    enabled: !!pokemonData?.name,
   });
 
   if (!pokemonData || !pokemonSpecies) return 'Loading';
