@@ -51,6 +51,7 @@ export default function Page({ params }: { params: { id: string | number } }) {
       fetch(`https://pokeapi.co/api/v2/pokemon/${params.id}`).then((res) =>
         res.json(),
       ),
+    cacheTime: Infinity,
   });
 
   const {
@@ -60,9 +61,10 @@ export default function Page({ params }: { params: { id: string | number } }) {
   } = useQuery<PokemonSpecies>({
     queryKey: ['pokemonSpecies'],
     queryFn: () =>
-      fetch(
-        `https://pokeapi.co/api/v2/pokemon-species/${pokemonData?.id}`,
-      ).then((res) => res.json()),
+      fetch(`https://pokeapi.co/api/v2/pokemon-species/${params?.id}`, {}).then(
+        (res) => res.json(),
+      ),
+    cacheTime: Infinity,
     enabled: !!pokemonData?.name,
   });
 
