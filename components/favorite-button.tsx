@@ -11,17 +11,25 @@ import Link from 'next/link';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Close } from '@radix-ui/react-popover';
 
-export function FavoriteButton({ pokemon }: { pokemon: PokemonData }) {
+export function FavoriteButton({
+  pokemonUrl,
+  pokemon,
+}: {
+  pokemonUrl: string;
+  pokemon: PokemonData;
+}) {
   const { toast } = useToast();
-  const [favPokemon, setFavPokemon] = useLocalStorage<PokemonData[]>(
+  const [favPokemon, setFavPokemon] = useLocalStorage<string[]>(
     'favPokemon',
     [],
   );
-  const isFavorited = !!favPokemon.find((p) => p.id === pokemon.id);
+  const isFavorited = !!favPokemon.find((localFav) => localFav === pokemonUrl);
 
   function handleClick() {
     if (isFavorited) {
-      setFavPokemon((prev) => prev.filter((p) => p.id !== pokemon.id));
+      setFavPokemon((prev) =>
+        prev.filter((localFav) => localFav !== pokemonUrl),
+      );
       toast({
         title: `${capitalizeFirstChar(pokemon.name)} removed from favorite!.`,
         description: 'Whoops! you release a pokemon from your favorite.',
@@ -32,7 +40,7 @@ export function FavoriteButton({ pokemon }: { pokemon: PokemonData }) {
         ),
       });
     } else {
-      setFavPokemon((prev) => [...prev, pokemon]);
+      setFavPokemon((prevFav) => [...prevFav, pokemonUrl]);
       toast({
         title: `${capitalizeFirstChar(pokemon.name)} added to favorite!.`,
         description:
