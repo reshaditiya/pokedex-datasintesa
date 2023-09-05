@@ -46,7 +46,9 @@ export const PokemonCard = forwardRef(function PokemonCard(
       <CardHeader>
         <CardTitle className="flex items-center text-lg font-semibold">
           {capitalizeFirstChar(pokemonData.name)}
-          <span className="ml-2 text-sm font-medium">#{pokemonData.id}</span>
+          <span className="ml-2 text-sm font-medium text-gray-600">
+            #{pokemonData.id}
+          </span>
         </CardTitle>
         <div className="mt-2 flex gap-2">
           {pokemonData.types.map((type) => (
