@@ -19,6 +19,7 @@ import { PokemonData } from '@/types/pokeapiDB.type';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import SkeletonPokemonCard from './skeleton-pokemon-card';
+import ErrorState from './error-state';
 
 export const PokemonCard = forwardRef(function PokemonCard(
   {
@@ -38,8 +39,9 @@ export const PokemonCard = forwardRef(function PokemonCard(
     cacheTime: Infinity,
   });
 
+  //guard state
   if (isLoadingPokemonData) return <SkeletonPokemonCard />;
-  if (isErrorPokemonData) return 'Error';
+  if (isErrorPokemonData) return <ErrorState />;
 
   return (
     <Card ref={ref} className="flex flex-col">

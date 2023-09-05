@@ -10,6 +10,7 @@ import SkeletonHomePage from '@/components/skeleton-home-page';
 import EmptyState from '@/components/empty-state';
 import { Button } from '@/components/ui/button';
 import { RotateCcw } from 'lucide-react';
+import ErrorState from '@/components/error-state';
 
 const DATA_PER_FETCH = 12;
 
@@ -52,7 +53,9 @@ export default function Home() {
   const lastElementRef = useRef<HTMLDivElement | null>(null);
   const lastElement = useIntersectionObserver(lastElementRef, {});
 
-  const { data, refetch, isLoading } = useQuery<PokemonList['results']>({
+  const { data, refetch, isLoading, isError } = useQuery<
+    PokemonList['results']
+  >({
     queryKey: ['pokemonList'],
     queryFn: async () => {
       //automatically fetch filtered data or all
@@ -98,7 +101,9 @@ export default function Home() {
     refetch();
   }, [data, filterType, refetch]);
 
+  //state guard
   if (isLoading) return <SkeletonHomePage />;
+  if (isError) return <ErrorState />;
 
   return (
     <main className="relative flex flex-1 flex-col">

@@ -1,5 +1,7 @@
 'use client';
 
+import EmptyState from '@/components/empty-state';
+import ErrorState from '@/components/error-state';
 import { FavoriteButton } from '@/components/favorite-button';
 import { PokemonCard } from '@/components/pokemon-card';
 import SkeletonDetailPage from '@/components/skeleton-detail-page';
@@ -23,6 +25,7 @@ import { useQuery } from '@tanstack/react-query';
 import { ChevronLeft } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import {
   Radar,
   RadarChart,
@@ -42,7 +45,11 @@ export async function generateStaticParams() {
 }
 
 export default function Page({ params }: { params: { id: string | number } }) {
-  const { data: pokemonData } = useQuery<PokemonData>({
+  const {
+    data: pokemonData,
+    isError: isErrorPokemonData,
+    isLoading: isLoadingPokemonData,
+  } = useQuery<PokemonData>({
     queryKey: ['pokemonDetail'],
     queryFn: () =>
       fetch(`${process.env.NEXT_PUBLIC_POKEMON_API}/pokemon/${params.id}`).then(
@@ -51,7 +58,11 @@ export default function Page({ params }: { params: { id: string | number } }) {
     cacheTime: Infinity,
   });
 
-  const { data: pokemonSpecies } = useQuery<PokemonSpecies>({
+  const {
+    data: pokemonSpecies,
+    isError: isErrorPokemonSpecies,
+    isLoading: isLoadingPokemonSpecies,
+  } = useQuery<PokemonSpecies>({
     queryKey: ['pokemonSpecies'],
     queryFn: () =>
       fetch(
@@ -63,7 +74,11 @@ export default function Page({ params }: { params: { id: string | number } }) {
     enabled: !!pokemonData?.species.url,
   });
 
-  if (!pokemonData || !pokemonSpecies) return <SkeletonDetailPage />;
+  //state guard
+  if (isLoadingPokemonData || isLoadingPokemonSpecies)
+    return <SkeletonDetailPage />;
+  if (!pokemonData || !pokemonSpecies) return notFound();
+  if (isErrorPokemonData || isErrorPokemonSpecies) return <ErrorState />;
 
   const chartData = [
     {
