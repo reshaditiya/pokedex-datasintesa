@@ -2,6 +2,7 @@
 
 import { FavoriteButton } from '@/components/favorite-button';
 import { PokemonCard } from '@/components/pokemon-card';
+import SkeletonDetailPage from '@/components/skeleton-detail-page';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -41,11 +42,7 @@ export async function generateStaticParams() {
 }
 
 export default function Page({ params }: { params: { id: string | number } }) {
-  const {
-    isLoading: isLoadingPokemonData,
-    error: errorPokemonData,
-    data: pokemonData,
-  } = useQuery<PokemonData>({
+  const { data: pokemonData } = useQuery<PokemonData>({
     queryKey: ['pokemonDetail'],
     queryFn: () =>
       fetch(`${process.env.NEXT_PUBLIC_POKEMON_API}/pokemon/${params.id}`).then(
@@ -54,11 +51,7 @@ export default function Page({ params }: { params: { id: string | number } }) {
     cacheTime: Infinity,
   });
 
-  const {
-    isLoading: isLoadingPokemonSpecies,
-    error: errorPokemonSpecies,
-    data: pokemonSpecies,
-  } = useQuery<PokemonSpecies>({
+  const { data: pokemonSpecies } = useQuery<PokemonSpecies>({
     queryKey: ['pokemonSpecies'],
     queryFn: () =>
       fetch(pokemonData?.species.url!, {}).then((res) => res.json()),
@@ -66,7 +59,7 @@ export default function Page({ params }: { params: { id: string | number } }) {
     enabled: !!pokemonData?.species.url,
   });
 
-  if (!pokemonData || !pokemonSpecies) return 'Loading';
+  if (!pokemonData || !pokemonSpecies) return <SkeletonDetailPage />;
 
   const chartData = [
     {
@@ -113,9 +106,9 @@ export default function Page({ params }: { params: { id: string | number } }) {
       <section className="mt-6 flex flex-col items-start gap-6 md:flex-row">
         <Card className="w-full flex-1">
           <CardHeader>
-            <CardTitle className="text-2xl font-semibold">
+            <CardTitle className="flex items-center text-2xl font-semibold">
               {capitalizeFirstChar(pokemonData.name)}
-              <span className="ml-2 text-base font-medium">
+              <span className="ml-2 text-base font-medium text-gray-600">
                 #{pokemonData.id}
               </span>
             </CardTitle>
