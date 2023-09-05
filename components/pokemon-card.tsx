@@ -1,3 +1,5 @@
+'use client';
+
 import { FavoriteButton } from './favorite-button';
 import {
   Card,
@@ -16,6 +18,7 @@ import { Ref, forwardRef } from 'react';
 import { PokemonData } from '@/types/pokeapiDB.type';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
+import SkeletonPokemonCard from './skeleton-pokemon-card';
 
 export const PokemonCard = forwardRef(function PokemonCard(
   {
@@ -35,13 +38,13 @@ export const PokemonCard = forwardRef(function PokemonCard(
     cacheTime: Infinity,
   });
 
-  if (isLoadingPokemonData) return 'Loading...';
+  if (isLoadingPokemonData) return <SkeletonPokemonCard />;
   if (isErrorPokemonData) return 'Error';
 
   return (
     <Card ref={ref} className="flex flex-col">
       <CardHeader>
-        <CardTitle className="text-lg font-semibold">
+        <CardTitle className="flex items-center text-lg font-semibold">
           {capitalizeFirstChar(pokemonData.name)}
           <span className="ml-2 text-sm font-medium">#{pokemonData.id}</span>
         </CardTitle>
