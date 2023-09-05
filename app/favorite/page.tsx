@@ -1,6 +1,5 @@
 'use client';
 
-import { ComboboxType } from '@/components/combobox-type';
 import { PokemonCard } from '@/components/pokemon-card';
 import { Button } from '@/components/ui/button';
 import { PokemonList } from '@/types/pokeapiDB.type';
@@ -26,7 +25,6 @@ export default function Page() {
             Back Home
           </Button>
         </Link>
-        <ComboboxType className="ml-4" />
       </div>
       <section className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {favPokemon
