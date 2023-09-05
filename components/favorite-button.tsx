@@ -71,7 +71,7 @@ function AddButton({ handleClick }: { handleClick: () => void }) {
     <Button
       size="icon"
       variant="secondary"
-      className="text-yellow-800"
+      className="text-yellow-800 dark:text-yellow-200"
       onClick={handleClick}
     >
       <Star className="h-4 w-4" />
@@ -89,8 +89,12 @@ function RemoveButton({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button size="icon" variant="secondary" className="text-yellow-800">
-          <Star className="h-4 w-4 fill-yellow-800" />
+        <Button
+          size="icon"
+          variant="secondary"
+          className="text-yellow-800 dark:text-yellow-200"
+        >
+          <Star className="h-4 w-4 fill-yellow-800 dark:fill-yellow-200" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-72" align="end">

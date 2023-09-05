@@ -7,7 +7,7 @@ export default function ErrorState() {
 
   return (
     <div className="my-auto flex w-full flex-1 flex-col items-center justify-center">
-      <AlertTriangle className="h-12 w-12 text-red-800" />
+      <AlertTriangle className="h-12 w-12 text-red-500" />
       <h1 className="mt-6 max-w-lg scroll-m-20 text-center text-2xl font-semibold tracking-tight">
         Something wrong happened!
       </h1>

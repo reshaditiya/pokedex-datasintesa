@@ -1,3 +1,4 @@
+import { ThemeProvider } from '@/components/theme-provider';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -21,14 +22,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} mx-auto flex min-h-screen max-w-7xl flex-col px-6`}
+        className={`${inter.className} mx-auto flex min-h-screen max-w-7xl flex-col px-6 dark:bg-gray-950`}
       >
-        <Navbar />
-        <ReactQueryProvider>
-          {children}
-          <Toaster />
-        </ReactQueryProvider>
-        <Footer />
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ReactQueryProvider>
+            <Navbar />
+            {children}
+            <Toaster />
+            <Footer />
+          </ReactQueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

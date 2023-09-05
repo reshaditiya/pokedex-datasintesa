@@ -19,7 +19,7 @@ export default function EmptyState({
         className,
       )}
     >
-      <CircleDotDashed className="h-12 w-12 text-gray-800" />
+      <CircleDotDashed className="h-12 w-12 text-gray-500" />
       <h1 className="mt-6 max-w-lg scroll-m-20 text-center text-2xl font-semibold tracking-tight">
         {title}
       </h1>

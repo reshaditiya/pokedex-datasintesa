@@ -127,7 +127,7 @@ export default function Page({ params }: { params: { id: string | number } }) {
           <CardHeader>
             <CardTitle className="flex items-center text-2xl font-semibold">
               {capitalizeFirstChar(pokemonData.name)}
-              <span className="ml-2 text-base font-medium text-gray-600">
+              <span className="ml-2 text-base font-medium text-gray-500">
                 #{pokemonData.id}
               </span>
             </CardTitle>
@@ -209,8 +209,8 @@ export default function Page({ params }: { params: { id: string | number } }) {
                 <Radar
                   name={pokemonData.name}
                   dataKey="val"
-                  stroke="#8884d8"
-                  fill="#8884d8"
+                  stroke="#6b7280"
+                  fill="#6b7280"
                   fillOpacity={0.6}
                 />
               </RadarChart>
