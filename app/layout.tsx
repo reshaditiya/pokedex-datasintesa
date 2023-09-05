@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import { Navbar } from '@/components/navbar';
 import ReactQueryProvider from '@/components/react-query-provider';
 import { Toaster } from '@/components/ui/toaster';
+import { Footer } from '@/components/footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,12 +20,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} mx-auto max-w-7xl px-6`}>
+      <body
+        className={`${inter.className} mx-auto flex min-h-screen max-w-7xl flex-col px-6`}
+      >
+        <Navbar />
         <ReactQueryProvider>
-          <Navbar />
           {children}
           <Toaster />
         </ReactQueryProvider>
+        <Footer />
       </body>
     </html>
   );
