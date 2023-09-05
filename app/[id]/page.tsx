@@ -13,7 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { capitalizeFirstChar } from '@/lib/utils';
+import { capitalizeFirstChar, sanitizeId } from '@/lib/utils';
 import {
   PokemonData,
   PokemonList,
@@ -54,7 +54,11 @@ export default function Page({ params }: { params: { id: string | number } }) {
   const { data: pokemonSpecies } = useQuery<PokemonSpecies>({
     queryKey: ['pokemonSpecies'],
     queryFn: () =>
-      fetch(pokemonData?.species.url!, {}).then((res) => res.json()),
+      fetch(
+        `${process.env.NEXT_PUBLIC_POKEMON_API}/pokemon-species/${sanitizeId(
+          params.id,
+        )}`,
+      ).then((res) => res.json()),
     cacheTime: Infinity,
     enabled: !!pokemonData?.species.url,
   });
