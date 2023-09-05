@@ -11,24 +11,23 @@ const DATA_PER_FETCH = 12;
 
 export default function Home() {
   const { data, fetchNextPage, isFetchingNextPage } =
-    useInfiniteQuery<PokemonList>(
-      ['pokemonList'],
-      ({ pageParam = 1 }) =>
+    useInfiniteQuery<PokemonList>({
+      queryKey: ['pokemonList'],
+      queryFn: ({ pageParam = 1 }) =>
         fetch(
           `https://pokeapi.co/api/v2/pokemon?limit=${DATA_PER_FETCH}&offset=${
             (pageParam - 1) * DATA_PER_FETCH
           }`,
         ).then((data) => data.json()),
-      {
-        getNextPageParam: (_, pages) => {
-          return pages.length + 1;
-        },
-        initialData: {
-          pages: [],
-          pageParams: [1],
-        },
+      getNextPageParam: (_, pages) => {
+        return pages.length + 1;
       },
-    );
+      initialData: {
+        pages: [],
+        pageParams: [1],
+      },
+      cacheTime: Infinity,
+    });
   const lastElementRef = useRef<HTMLDivElement | null>(null);
   const lastElement = useIntersectionObserver(lastElementRef, {});
 

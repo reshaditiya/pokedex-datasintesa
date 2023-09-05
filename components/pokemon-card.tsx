@@ -29,9 +29,11 @@ export const PokemonCard = forwardRef(function PokemonCard(
     data: pokemonData,
     isLoading: isLoadingPokemonData,
     isError: isErrorPokemonData,
-  } = useQuery<PokemonData>(['pokemonData', pokemonUrl], () =>
-    fetch(pokemonUrl).then((data) => data.json()),
-  );
+  } = useQuery<PokemonData>({
+    queryKey: ['pokemonData', pokemonUrl],
+    queryFn: () => fetch(pokemonUrl).then((data) => data.json()),
+    cacheTime: Infinity,
+  });
 
   if (isLoadingPokemonData) return 'Loading...';
   if (isErrorPokemonData) return 'Error';
