@@ -16,6 +16,9 @@ export default function Page() {
 
   return (
     <main>
+      <h1 className="mt-6 scroll-m-20 text-2xl font-semibold tracking-tight">
+        My Favorite
+      </h1>
       <div className="mt-6 flex items-center">
         <Link href="/">
           <Button variant="secondary">
