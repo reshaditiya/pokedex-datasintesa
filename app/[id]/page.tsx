@@ -102,8 +102,6 @@ export default function Page({ params }: { params: { id: string | number } }) {
     },
   ];
 
-  console.log(pokemonSpecies.varieties);
-
   return (
     <main>
       <Button variant="secondary" className="mt-6" asChild>
@@ -114,7 +112,7 @@ export default function Page({ params }: { params: { id: string | number } }) {
       </Button>
 
       <section className="mt-6 flex flex-col items-start gap-6 md:flex-row">
-        <Card className="flex-1">
+        <Card className="w-full flex-1">
           <CardHeader>
             <CardTitle className="text-2xl font-semibold">
               {capitalizeFirstChar(pokemonData.name)}
