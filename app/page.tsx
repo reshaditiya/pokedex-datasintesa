@@ -94,30 +94,23 @@ export default function Home() {
   }, [data, filterType, refetch]);
 
   return (
-    <main>
+    <main className="relative">
       <ComboboxType
         className="mt-6"
         value={filterType}
         handleChange={setFilterType}
       />
       <section className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {pokemonList
-          .slice(0, DATA_PER_FETCH * page)
-          .map((pokemon, i) =>
-            i === DATA_PER_FETCH * page - 1 ? (
-              <PokemonCard
-                ref={lastElementRef}
-                key={pokemon.name}
-                pokemonUrl={pokemon.url}
-              />
-            ) : (
-              <PokemonCard key={pokemon.name} pokemonUrl={pokemon.url} />
-            ),
-          )}
-        {/* <div ref={lastElementRef}>
-          <p>Page {page}</p>
-        </div> */}
+        {pokemonList.slice(0, DATA_PER_FETCH * page).map((pokemon, i) => (
+          <PokemonCard key={pokemon.name} pokemonUrl={pokemon.url} />
+        ))}
       </section>
+
+      {/* infinite scroll trigger */}
+      <div
+        ref={lastElementRef}
+        className="absolute bottom-96 h-1 w-1 opacity-0"
+      ></div>
     </main>
   );
 }
