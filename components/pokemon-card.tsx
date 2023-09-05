@@ -39,7 +39,7 @@ export const PokemonCard = forwardRef(function PokemonCard(
   if (isErrorPokemonData) return 'Error';
 
   return (
-    <Card ref={ref}>
+    <Card ref={ref} className="flex flex-col">
       <CardHeader>
         <CardTitle className="text-lg font-semibold">
           {capitalizeFirstChar(pokemonData.name)}
@@ -65,7 +65,7 @@ export const PokemonCard = forwardRef(function PokemonCard(
           />
         </AspectRatio>
       </CardContent>
-      <CardFooter className="flex justify-between">
+      <CardFooter className="mt-auto flex justify-between">
         <Button variant="secondary" asChild>
           <Link href={pokemonData.name}>
             <BookOpen className="mr-2 h-4 w-4" />
