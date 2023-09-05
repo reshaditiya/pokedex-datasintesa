@@ -7,6 +7,9 @@ import { useQuery } from '@tanstack/react-query';
 import { PokemonList, PokemonTypesAPI } from '@/types/pokeapiDB.type';
 import { useIntersectionObserver } from 'usehooks-ts';
 import SkeletonHomePage from '@/components/skeleton-home-page';
+import EmptyState from '@/components/empty-state';
+import { Button } from '@/components/ui/button';
+import { RotateCcw } from 'lucide-react';
 
 const DATA_PER_FETCH = 12;
 
@@ -69,6 +72,7 @@ export default function Home() {
 
       return response.results;
     },
+    cacheTime: Infinity,
   });
 
   //side effect for infinite scrolling
@@ -97,17 +101,29 @@ export default function Home() {
   if (isLoading) return <SkeletonHomePage />;
 
   return (
-    <main className="relative">
+    <main className="relative flex flex-1 flex-col">
       <ComboboxType
         className="mt-6"
         value={filterType}
         handleChange={setFilterType}
       />
-      <section className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {pokemonList.slice(0, DATA_PER_FETCH * page).map((pokemon) => (
-          <PokemonCard key={pokemon.name} pokemonUrl={pokemon.url} />
-        ))}
-      </section>
+      {pokemonList.length === 0 ? (
+        <EmptyState
+          title="No Pokemon Found!"
+          description="Oops, there is no sight of the pokemon nearby, reset the filter to see them."
+          action={
+            <Button onClick={() => setFilterType([])}>
+              <RotateCcw className="mr-2 h-4 w-4" /> Reset Filter
+            </Button>
+          }
+        />
+      ) : (
+        <section className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {pokemonList.slice(0, DATA_PER_FETCH * page).map((pokemon) => (
+            <PokemonCard key={pokemon.name} pokemonUrl={pokemon.url} />
+          ))}
+        </section>
+      )}
 
       {/* infinite scroll trigger */}
       <div
