@@ -32,13 +32,6 @@ export default function SkeletonPokemonCard() {
       <CardFooter className="mt-auto flex justify-between">
         <Skeleton className="h-10 w-28" />
         <Skeleton className="h-10 w-10" />
-        {/* <Button variant="secondary" asChild>
-          <Link href={pokemonData.name}>
-            <BookOpen className="mr-2 h-4 w-4" />
-            See Detail
-          </Link>
-        </Button>
-        <FavoriteButton pokemonUrl={pokemonUrl} pokemon={pokemonData} /> */}
       </CardFooter>
     </Card>
   );
