@@ -56,7 +56,9 @@ export const PokemonCard = forwardRef(function PokemonCard(
       <CardContent>
         <AspectRatio ratio={1 / 1}>
           <Image
-            src={pokemonData.sprites.other['official-artwork'].front_default!}
+            src={
+              pokemonData.sprites.other['official-artwork'].front_default ?? ''
+            }
             fill
             alt={pokemonData.name}
             className="object-cover"
