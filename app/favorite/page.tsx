@@ -23,9 +23,11 @@ export default function Page() {
         <ComboboxType className="ml-4" />
       </div>
       <section className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {favPokemon.map((pokemon) => (
-          <PokemonCard key={pokemon.id} pokemon={pokemon} />
-        ))}
+        {favPokemon
+          .sort((a, b) => a.id - b.id)
+          .map((pokemon) => (
+            <PokemonCard key={pokemon.id} pokemon={pokemon} />
+          ))}
       </section>
     </main>
   );
