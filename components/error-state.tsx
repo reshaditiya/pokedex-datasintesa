@@ -1,11 +1,8 @@
 import { AlertTriangle, RefreshCcw } from 'lucide-react';
 import { Button } from './ui/button';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 export default function ErrorState() {
-  const router = useRouter();
-
   return (
     <div className="my-auto flex w-full flex-1 flex-col items-center justify-center">
       <AlertTriangle className="h-12 w-12 text-red-500" />
@@ -20,7 +17,7 @@ export default function ErrorState() {
         <Button variant="secondary" asChild>
           <Link href="/">Back Home</Link>
         </Button>
-        <Button onClick={() => router.refresh()} className="ml-4">
+        <Button onClick={() => location.reload()} className="ml-4">
           <RefreshCcw className="mr-2 h-4 w-4" />
           Refresh
         </Button>
