@@ -13,3 +13,20 @@ export function sanitizeId(id: string | number) {
   if (typeof id === 'number') return id;
   return id.split('-')[0];
 }
+
+export function smoothScroll(
+  e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  target: string,
+) {
+  const element = document.getElementById(target);
+  const headerOffset = 0;
+  const elementPosition = element?.getBoundingClientRect().top;
+  const offsetPosition = elementPosition ?? 0 + window.scrollY - headerOffset;
+
+  e.preventDefault();
+
+  window.scrollTo({
+    top: offsetPosition,
+    behavior: 'smooth',
+  });
+}
