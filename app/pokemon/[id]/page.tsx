@@ -15,7 +15,12 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { capitalizeFirstChar, sanitizeId } from '@/lib/utils';
+import {
+  capitalizeFirstChar,
+  removeHyphen,
+  sanitizeId,
+  titleCase,
+} from '@/lib/utils';
 import {
   PokemonData,
   PokemonList,
@@ -126,7 +131,7 @@ export default function Page({ params }: { params: { id: string | number } }) {
         <Card className="w-full flex-1">
           <CardHeader>
             <CardTitle className="flex items-center text-2xl font-semibold">
-              {capitalizeFirstChar(pokemonData.name)}
+              {titleCase(removeHyphen(pokemonData.name))}
               <span className="ml-2 text-base font-medium text-gray-500">
                 #{pokemonData.id}
               </span>
@@ -188,7 +193,7 @@ export default function Page({ params }: { params: { id: string | number } }) {
             <p className="mt-1">
               {pokemonData.abilities.map(
                 (ability, i) =>
-                  capitalizeFirstChar(ability.ability.name) +
+                  capitalizeFirstChar(removeHyphen(ability.ability.name)) +
                   (i < pokemonData.abilities.length - 1 ? ', ' : ''),
               )}
             </p>

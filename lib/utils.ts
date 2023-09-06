@@ -30,3 +30,13 @@ export function smoothScroll(
     behavior: 'smooth',
   });
 }
+
+export function removeHyphen(str: string) {
+  return str.replace(/-/g, ' ');
+}
+
+export function titleCase(str: string) {
+  return str.replace(/\w\S*/g, function (txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
+}

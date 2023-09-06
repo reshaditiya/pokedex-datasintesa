@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { capitalizeFirstChar } from '@/lib/utils';
+import { capitalizeFirstChar, removeHyphen, titleCase } from '@/lib/utils';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { BookOpen } from 'lucide-react';
@@ -47,7 +47,7 @@ export const PokemonCard = forwardRef(function PokemonCard(
     <Card ref={ref} className="flex flex-col">
       <CardHeader>
         <CardTitle className="flex items-center text-lg font-semibold">
-          {capitalizeFirstChar(pokemonData.name)}
+          {titleCase(removeHyphen(pokemonData.name))}
           <span className="ml-2 text-sm font-medium text-gray-500">
             #{pokemonData.id}
           </span>
