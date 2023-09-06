@@ -41,7 +41,7 @@ import {
 
 export async function generateStaticParams() {
   const pokemons: PokemonList = await fetch(
-    'https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0',
+    `${process.env.NEXT_PUBLIC_POKEMON_API}/pokemon?limit=100000&offset=0`,
   ).then((res) => res.json());
 
   return pokemons.results.map((pokemon) => ({
