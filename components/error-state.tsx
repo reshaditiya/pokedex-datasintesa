@@ -1,6 +1,7 @@
 import { AlertTriangle, RefreshCcw } from 'lucide-react';
 import { Button } from './ui/button';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function ErrorState() {
   const router = useRouter();
@@ -16,7 +17,9 @@ export default function ErrorState() {
         to home page.
       </p>
       <div className="mt-6">
-        <Button variant="secondary">Back Home</Button>
+        <Button variant="secondary" asChild>
+          <Link href="/">Back Home</Link>
+        </Button>
         <Button onClick={() => router.refresh()} className="ml-4">
           <RefreshCcw className="mr-2 h-4 w-4" />
           Refresh
