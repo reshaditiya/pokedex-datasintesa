@@ -40,6 +40,7 @@ export function FavoriteButton({
             <Link href="/favorite">My Favorite</Link>
           </ToastAction>
         ),
+        duration: 3000,
       });
     } else {
       setFavPokemon((prevFav) => [
@@ -55,6 +56,7 @@ export function FavoriteButton({
             <Link href="/favorite">My Favorite</Link>
           </ToastAction>
         ),
+        duration: 3000,
       });
     }
   }
