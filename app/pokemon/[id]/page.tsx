@@ -76,7 +76,6 @@ export default function Page({ params }: { params: { id: string | number } }) {
         )}`,
       ).then((res) => res.json()),
     cacheTime: Infinity,
-    enabled: !!pokemonData?.species.url,
   });
 
   //state guard
