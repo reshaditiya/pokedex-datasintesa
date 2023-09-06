@@ -102,10 +102,12 @@ function RemoveButton({
       <PopoverContent className="w-72" align="end">
         <>
           <h4 className="font-medium leading-none">
-            Remove {capitalizeFirstChar(pokemonName)} ?
+            Remove {capitalizeFirstChar(pokemonName)} From Favorite ?
           </h4>
           <p className="text-muted-foreground mt-1 text-sm">
-            Remove action cannot be undone.
+            {`You can manually add ${capitalizeFirstChar(
+              pokemonName,
+            )} later after removing.`}
           </p>
           <div className="mt-4 flex gap-3">
             <Button variant="destructive" size="sm" onClick={handleClick}>
