@@ -112,7 +112,7 @@ export default function Home() {
         value={filterType}
         handleChange={setFilterType}
       />
-      {pokemonList.length === 0 ? (
+      {pokemonList.length === 0 && data?.length === 0 ? (
         <EmptyState
           title="No Pokemon Found!"
           description="Oops, there is no sight of the pokemon nearby, reset the filter to see them."
