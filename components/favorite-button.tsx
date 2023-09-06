@@ -6,7 +6,7 @@ import { useLocalStorage } from 'usehooks-ts';
 import { PokemonData, PokemonList } from '@/types/pokeapiDB.type';
 import { useToast } from './ui/use-toast';
 import { ToastAction } from './ui/toast';
-import { capitalizeFirstChar } from '@/lib/utils';
+import { capitalizeFirstChar, removeHyphen, titleCase } from '@/lib/utils';
 import Link from 'next/link';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Close } from '@radix-ui/react-popover';
@@ -33,7 +33,9 @@ export function FavoriteButton({
         prev.filter((localFav) => localFav.name !== pokemon.name),
       );
       toast({
-        title: `${capitalizeFirstChar(pokemon.name)} removed from favorite!.`,
+        title: `${titleCase(
+          removeHyphen(pokemon.name),
+        )} removed from favorite!.`,
         description: 'Whoops! you release a pokemon from your favorite.',
         action: (
           <ToastAction altText="My Favorite" asChild>
@@ -48,7 +50,7 @@ export function FavoriteButton({
         { name: pokemon.name, url: pokemonUrl },
       ]);
       toast({
-        title: `${capitalizeFirstChar(pokemon.name)} added to favorite!.`,
+        title: `${titleCase(removeHyphen(pokemon.name))} added to favorite!.`,
         description:
           'Gotcha! you add a pokemon to your favorite, catch them all.',
         action: (
@@ -102,11 +104,11 @@ function RemoveButton({
       <PopoverContent className="w-72" align="end">
         <>
           <h4 className="font-medium leading-none">
-            Remove {capitalizeFirstChar(pokemonName)} From Favorite ?
+            Remove {titleCase(removeHyphen(pokemonName))} From Favorite ?
           </h4>
           <p className="text-muted-foreground mt-1 text-sm">
-            {`You can manually add ${capitalizeFirstChar(
-              pokemonName,
+            {`You can manually add ${titleCase(
+              removeHyphen(pokemonName),
             )} later after removing.`}
           </p>
           <div className="mt-4 flex gap-3">
