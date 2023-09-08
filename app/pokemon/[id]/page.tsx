@@ -1,10 +1,5 @@
-'use client';
-
-import EmptyState from '@/components/empty-state';
-import ErrorState from '@/components/error-state';
 import { FavoriteButton } from '@/components/favorite-button';
-import { PokemonCard } from '@/components/pokemon-card';
-import SkeletonDetailPage from '@/components/skeleton-detail-page';
+import { PokemonStats } from '@/components/pokemon-stats';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -15,29 +10,16 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import {
-  capitalizeFirstChar,
-  removeHyphen,
-  sanitizeId,
-  titleCase,
-} from '@/lib/utils';
+import { capitalizeFirstChar, removeHyphen, titleCase } from '@/lib/utils';
 import {
   PokemonData,
   PokemonList,
   PokemonSpecies,
 } from '@/types/pokeapiDB.type';
-import { useQuery } from '@tanstack/react-query';
 import { ChevronLeft } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import {
-  Radar,
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-} from 'recharts';
 
 export async function generateStaticParams() {
   const pokemons: PokemonList = await fetch(
@@ -49,73 +31,23 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function Page({ params }: { params: { id: string | number } }) {
-  const {
-    data: pokemonData,
-    isError: isErrorPokemonData,
-    isLoading: isLoadingPokemonData,
-  } = useQuery<PokemonData>({
-    queryKey: ['pokemonDetail'],
-    queryFn: () =>
-      fetch(`${process.env.NEXT_PUBLIC_POKEMON_API}/pokemon/${params.id}`).then(
-        (res) => res.json(),
-      ),
-    cacheTime: Infinity,
-  });
+export default async function Page({
+  params,
+}: {
+  params: { id: string | number };
+}) {
+  //fetch data
+  const pokemonData: PokemonData = await fetch(
+    `${process.env.NEXT_PUBLIC_POKEMON_API}/pokemon/${params.id}`,
+  )
+    .then((res) => res.json())
+    .catch(() => notFound());
 
-  const {
-    data: pokemonSpecies,
-    isError: isErrorPokemonSpecies,
-    isLoading: isLoadingPokemonSpecies,
-  } = useQuery<PokemonSpecies>({
-    queryKey: ['pokemonSpecies'],
-    queryFn: () =>
-      fetch(
-        `${process.env.NEXT_PUBLIC_POKEMON_API}/pokemon-species/${sanitizeId(
-          params.id,
-        )}`,
-      ).then((res) => res.json()),
-    cacheTime: Infinity,
-  });
-
-  //state guard
-  if (isLoadingPokemonData || isLoadingPokemonSpecies)
-    return <SkeletonDetailPage />;
-  if (!pokemonData || !pokemonSpecies) return notFound();
-  if (isErrorPokemonData || isErrorPokemonSpecies) return <ErrorState />;
-
-  const chartData = [
-    {
-      subject: 'HP',
-      val: pokemonData.stats[0].base_stat,
-      fullMark: 100,
-    },
-    {
-      subject: 'ATK',
-      val: pokemonData.stats[1].base_stat,
-      fullMark: 100,
-    },
-    {
-      subject: 'DFS',
-      val: pokemonData.stats[2].base_stat,
-      fullMark: 100,
-    },
-    {
-      subject: 'ATK+',
-      val: pokemonData.stats[3].base_stat,
-      fullMark: 100,
-    },
-    {
-      subject: 'DFS+',
-      val: pokemonData.stats[4].base_stat,
-      fullMark: 100,
-    },
-    {
-      subject: 'SPD',
-      val: pokemonData.stats[5].base_stat,
-      fullMark: 100,
-    },
-  ];
+  const pokemonSpecies: PokemonSpecies = await fetch(
+    `${pokemonData.species.url}`,
+  )
+    .then((res) => res.json())
+    .catch(() => notFound());
 
   return (
     <main>
@@ -201,23 +133,7 @@ export default function Page({ params }: { params: { id: string | number } }) {
           <div className="max-w-lg">
             <h3 className="font-semibold">Stats</h3>
             <div className="mt-1">
-              <RadarChart
-                width={280}
-                height={200}
-                data={chartData}
-                className="text-sm"
-              >
-                <PolarGrid />
-                <PolarAngleAxis dataKey="subject" />
-                <PolarRadiusAxis />
-                <Radar
-                  name={pokemonData.name}
-                  dataKey="val"
-                  stroke="#6b7280"
-                  fill="#6b7280"
-                  fillOpacity={0.6}
-                />
-              </RadarChart>
+              <PokemonStats pokemonData={pokemonData} />
             </div>
           </div>
 
