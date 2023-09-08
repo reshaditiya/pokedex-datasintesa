@@ -6,10 +6,11 @@ import { useLocalStorage } from 'usehooks-ts';
 import { PokemonData, PokemonList } from '@/types/pokeapiDB.type';
 import { useToast } from './ui/use-toast';
 import { ToastAction } from './ui/toast';
-import { capitalizeFirstChar, removeHyphen, titleCase } from '@/lib/utils';
+import { removeHyphen, titleCase } from '@/lib/utils';
 import Link from 'next/link';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Close } from '@radix-ui/react-popover';
+import { useEffect, useState } from 'react';
 
 export function FavoriteButton({
   pokemonUrl,
@@ -19,13 +20,18 @@ export function FavoriteButton({
   pokemon: PokemonData;
 }) {
   const { toast } = useToast();
+  const [isFavorited, setIsFavorited] = useState(false);
   const [favPokemon, setFavPokemon] = useLocalStorage<PokemonList['results']>(
     'favPokemon',
     [],
   );
-  const isFavorited = !!favPokemon.find(
-    (localFav) => localFav.name === pokemon.name,
-  );
+
+  useEffect(() => {
+    setIsFavorited(
+      favPokemon.find((localFav) => localFav.name === pokemon.name) !==
+        undefined,
+    );
+  }, [favPokemon, pokemon.name]);
 
   function handleClick() {
     if (isFavorited) {
