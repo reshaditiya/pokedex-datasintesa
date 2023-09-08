@@ -1,10 +1,11 @@
 'use client';
 
+import { BackButton } from '@/components/back-button';
 import EmptyState from '@/components/empty-state';
 import { PokemonCard } from '@/components/pokemon-card';
 import { Button } from '@/components/ui/button';
 import { PokemonList } from '@/types/pokeapiDB.type';
-import { ChevronLeft, Plus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import { useLocalStorage } from 'usehooks-ts';
 
@@ -20,12 +21,7 @@ export default function Page() {
         My Favorite
       </h1>
       <div className="mt-6 flex items-center">
-        <Link href="/">
-          <Button variant="secondary">
-            <ChevronLeft className="mr-2 h-4 w-4" />
-            Back Home
-          </Button>
-        </Link>
+        <BackButton />
       </div>
       {favPokemon.length === 0 ? (
         <EmptyState

@@ -1,8 +1,8 @@
+import { BackButton } from '@/components/back-button';
 import { FavoriteButton } from '@/components/favorite-button';
 import { PokemonStats } from '@/components/pokemon-stats';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -16,9 +16,7 @@ import {
   PokemonList,
   PokemonSpecies,
 } from '@/types/pokeapiDB.type';
-import { ChevronLeft } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
@@ -51,12 +49,7 @@ export default async function Page({
 
   return (
     <main>
-      <Button variant="secondary" className="mt-6" asChild>
-        <Link href="/">
-          <ChevronLeft className="mr-2 h-4 w-4" />
-          Back Home
-        </Link>
-      </Button>
+      <BackButton />
 
       <section className="mt-6 flex flex-col items-start gap-6 md:flex-row">
         <Card className="w-full flex-1">
