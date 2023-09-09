@@ -109,12 +109,12 @@ function RemoveButton({
       </PopoverTrigger>
       <PopoverContent className="w-72" align="end">
         <>
-          <h4 className="font-medium leading-none">
-            Remove {titleCase(removeHyphen(pokemonName))} From Favorite ?
+          <h4 className="font-medium capitalize leading-none">
+            Remove {removeHyphen(pokemonName)} From Favorite ?
           </h4>
-          <p className="text-muted-foreground mt-1 text-sm">
-            {`You can manually add ${titleCase(
-              removeHyphen(pokemonName),
+          <p className="text-muted-foreground mt-1 text-sm capitalize">
+            {`You can manually add ${removeHyphen(
+              pokemonName,
             )} later after removing.`}
           </p>
           <div className="mt-4 flex gap-3">

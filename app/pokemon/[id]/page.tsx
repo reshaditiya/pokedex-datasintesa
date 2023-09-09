@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { capitalizeFirstChar, removeHyphen, titleCase } from '@/lib/utils';
+import { removeHyphen } from '@/lib/utils';
 import {
   PokemonData,
   PokemonList,
@@ -54,16 +54,20 @@ export default async function Page({
       <section className="mt-6 flex flex-col items-start gap-6 md:flex-row">
         <Card className="w-full flex-1">
           <CardHeader>
-            <CardTitle className="flex items-center text-2xl font-semibold">
-              {titleCase(removeHyphen(pokemonData.name))}
+            <CardTitle className="flex items-center text-2xl font-semibold capitalize">
+              {removeHyphen(pokemonData.name)}
               <span className="ml-2 text-base font-medium text-gray-500">
                 #{pokemonData.id}
               </span>
             </CardTitle>
             <div className="flex gap-2">
               {pokemonData.types.map((type) => (
-                <Badge variant="outline" key={type.type.name}>
-                  {capitalizeFirstChar(type.type.name)}
+                <Badge
+                  variant="outline"
+                  key={type.type.name}
+                  className="capitalize"
+                >
+                  {type.type.name}
                 </Badge>
               ))}
             </div>
@@ -114,10 +118,10 @@ export default async function Page({
 
           <div className="max-w-lg">
             <h3 className="font-semibold">Abilities</h3>
-            <p className="mt-1">
+            <p className="mt-1 capitalize">
               {pokemonData.abilities.map(
                 (ability, i) =>
-                  capitalizeFirstChar(removeHyphen(ability.ability.name)) +
+                  removeHyphen(ability.ability.name) +
                   (i < pokemonData.abilities.length - 1 ? ', ' : ''),
               )}
             </p>

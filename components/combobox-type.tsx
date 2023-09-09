@@ -15,12 +15,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { capitalizeFirstChar, cn } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import { pokemonTypes } from '@/data/pokemon-types';
 
 const pokemonTypesCombo = pokemonTypes.sort().map((type) => ({
   value: type,
-  label: capitalizeFirstChar(type),
+  label: type,
 }));
 
 export function ComboboxType({
@@ -44,12 +44,10 @@ export function ComboboxType({
             aria-expanded={open}
             className="w-full max-w-[16rem] justify-between"
           >
-            <span className="truncate">
+            <span className="truncate capitalize">
               {value.length
                 ? value.map(
-                    (val, i) =>
-                      capitalizeFirstChar(val) +
-                      (i < value.length - 1 ? ', ' : ''),
+                    (val, i) => val + (i < value.length - 1 ? ', ' : ''),
                   )
                 : 'Select Type...'}
             </span>
@@ -64,7 +62,7 @@ export function ComboboxType({
               {pokemonTypesCombo.map((pokemonType) => (
                 <CommandItem
                   key={pokemonType.value}
-                  className="py-3"
+                  className="py-3 capitalize"
                   onSelect={(currentValue) => {
                     handleChange((prev) =>
                       prev.includes(currentValue)
